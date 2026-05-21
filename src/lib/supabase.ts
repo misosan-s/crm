@@ -17,13 +17,14 @@ export interface Profile {
   email: string;
   name: string;
   current_status: string;
+  is_admin?: boolean;
   updated_at: string;
 }
 
 export interface ActionLog {
   id: string;
   user_id: string;
-  user_email: string;
+  user_email?: string;
   action_type: 'click_guide' | 'click_error' | 'click_mission';
   created_at: string;
 }
@@ -31,7 +32,7 @@ export interface ActionLog {
 export interface EmailLog {
   id: string;
   user_id: string;
-  user_email: string;
+  user_email?: string;
   email_type: 'guide' | 'error' | 'mission_completed' | 'follow_up';
   status: 'sent' | 'scheduled' | 'failed';
   scheduled_at?: string;

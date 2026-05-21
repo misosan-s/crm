@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
-import { Mail, User, ShieldAlert, LogIn, ArrowRight, Activity } from 'lucide-react';
+import { Mail, User, ShieldAlert, LogIn, ArrowRight, Activity, Lock } from 'lucide-react';
 
 export default function Home() {
   const router = useRouter();
-  const { user, login } = useApp();
+  const { user, login, loginError, mockMode } = useApp();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -26,18 +27,22 @@ export default function Home() {
       setErrorMsg('이메일 주소를 입력해주세요.');
       return;
     }
+    if (!mockMode && !password) {
+      setErrorMsg('비밀번호를 입력해주세요.');
+      return;
+    }
     setErrorMsg('');
     setLoading(true);
-    
+
     try {
-      const success = await login(email, name || email.split('@')[0]);
-      if (success) {
+      const result = await login(email, name || email.split('@')[0], password);
+      if (result.success) {
         router.push('/dashboard');
       } else {
-        setErrorMsg('로그인에 실패했습니다. 다시 시도해 주세요.');
+        setErrorMsg(result.error || loginError || '로그인에 실패했습니다. 다시 시도해 주세요.');
       }
     } catch (err) {
-      setErrorMsg('오류가 발생했습니다.');
+      setErrorMsg(err instanceof Error ? err.message : '오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
@@ -106,6 +111,31 @@ export default function Home() {
                 />
               </div>
             </div>
+
+            {!mockMode && (
+              <div>
+                <label htmlFor="password" className="block text-xs font-medium text-gray-400 mb-1.5 uppercase tracking-wider">
+                  비밀번호
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-500">
+                    <Lock className="w-4 h-4" />
+                  </div>
+                  <input
+                    id="password"
+                    type="password"
+                    required
+                    placeholder="첫 가입이면 입력한 비밀번호가 등록됩니다"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full pl-10 pr-4 py-2.5 bg-gray-900/60 border border-gray-800 rounded-xl text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all text-sm"
+                  />
+                </div>
+                <p className="text-[10px] text-gray-500 mt-1.5">
+                  미등록 이메일은 입력한 비밀번호로 자동 가입됩니다.
+                </p>
+              </div>
+            )}
 
             {errorMsg && (
               <p className="text-xs text-red-400 font-medium">{errorMsg}</p>
