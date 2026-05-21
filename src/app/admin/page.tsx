@@ -187,7 +187,7 @@ export default function AdminDashboard() {
             </button>
             <div className="text-right text-xs">
               <span className="text-gray-500">어드민 계정: </span>
-              <span className="font-semibold text-gray-300">instructor@vibemailer.com</span>
+              <span className="font-semibold text-gray-300">{user?.email ?? '—'}</span>
             </div>
           </div>
         </header>
