@@ -59,3 +59,6 @@ enabled = false
 
 [functions.trigger-action]
 verify_jwt = true
+
+[functions.resend-webhook]
+verify_jwt = false
