@@ -9,6 +9,8 @@
 
 자세한 제품 명세는 [`prd.md`](./prd.md), 작업 분담은 [`implementation_plan.md`](./implementation_plan.md) 참고.
 
+> **미소산랩(MisosanLab)**: 같은 인프라(Supabase + Resend) 위에 올린 별도 기능 — Claude Code 개념을 평일 매일 메일로 배달하는 학습 봇. 셋업/사용은 [`docs/misosanlab.md`](./docs/misosanlab.md) 참고.
+
 ---
 
 ## 빠른 시작 (프론트엔드)

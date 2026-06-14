@@ -59,3 +59,8 @@ enabled = false
 
 [functions.trigger-action]
 verify_jwt = true
+
+# 미소산랩 일일 메일 발송 — cron(pg_net)이 x-cron-secret 헤더로 호출하므로 JWT 미검증.
+# 보호는 MISOSAN_CRON_SECRET 시크릿으로 한다.
+[functions.daily-lesson]
+verify_jwt = false

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ml:sync": "node scripts/ml_sync_curriculum.mjs",
+    "ml:add-source": "node scripts/ml_add_source.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.1",
