@@ -49,3 +49,6 @@ next-env.d.ts
 # 임시 스크린샷 (Windows 기본 파일명 패턴)
 스크린샷*.png
 2스크린샷*.png
+
+# Playwright MCP 세션 로그
+.playwright-mcp/
